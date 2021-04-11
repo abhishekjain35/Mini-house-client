@@ -1,15 +1,22 @@
 import React, { useEffect, useRef } from "react";
 import { Card, Layout, Spin, Typography } from "antd";
 import googleLogo from "./assets/google_logo.jpg";
+import { ErrorBanner } from "../../lib/components";
+import { useApolloClient, useMutation } from "@apollo/react-hooks";
 import { LOG_IN } from "../../lib/graphql/mutations";
 import { AUTH_URL } from "../../lib/graphql/queries";
-import { useApolloClient, useMutation } from "@apollo/react-hooks";
 import { AuthUrl as AuthUrlData } from "../../lib/graphql/queries/AuthUrl/__generated__/AuthUrl";
 import {
   LogIn as LogInData,
   LogInVariables,
 } from "../../lib/graphql/mutations/logIn/__generated__/LogIn";
+import {
+  displayErrorMessage,
+  displaySuccessNotification,
+} from "../../lib/utils";
 import { Viewer } from "../../lib/types";
+import { Redirect } from "react-router";
+
 const { Content } = Layout;
 const { Text, Title } = Typography;
 
@@ -28,6 +35,7 @@ export const Login = ({ setViewer }: Props) => {
       if (data && data.logIn) {
         setViewer(data.logIn);
       }
+      displaySuccessNotification("You've successfully logged in!");
     },
   });
 
@@ -50,14 +58,33 @@ export const Login = ({ setViewer }: Props) => {
         query: AUTH_URL,
       });
       window.location.href = data.authUrl;
-    } catch {}
+    } catch {
+      displayErrorMessage(
+        "Sorry! we can't log you in at the moment. Please try again later."
+      );
+    }
   };
 
-  if(logInLoading){
-    return <Content><Spin size="large" tip="Logging you in..." /></Content>
+  if (logInLoading) {
+    return (
+      <Content>
+        <Spin size="large" tip="Logging you in..." />
+      </Content>
+    );
   }
+
+  if (logInData && logInData.logIn) {
+    const { id: viewerId } = logInData.logIn;
+    return <Redirect to={`/user/${viewerId}`} />;
+  }
+
+  const loginErrorBannerComponent = logInError ? (
+    <ErrorBanner description="Sorry! we can't log you in at the moment. Please try again later." />
+  ) : null;
+
   return (
     <Content className="log-in">
+      {loginErrorBannerComponent}
       <Card className="log-in-card">
         <div className="log-in-card__intro">
           <Title>

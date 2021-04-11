@@ -31,6 +31,7 @@ const initialViewer: Viewer = {
 
 const App = () => {
   const [viewer, setViewer] = useState<Viewer>(initialViewer);
+
   return (
     <BrowserRouter>
       <Layout id="app">
