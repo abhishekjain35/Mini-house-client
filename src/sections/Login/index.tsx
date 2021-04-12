@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from "react";
+import { useApolloClient, useMutation } from "@apollo/react-hooks";
+import { Redirect } from "react-router";
 import { Card, Layout, Spin, Typography } from "antd";
 import googleLogo from "./assets/google_logo.jpg";
 import { ErrorBanner } from "../../lib/components";
-import { useApolloClient, useMutation } from "@apollo/react-hooks";
 import { LOG_IN } from "../../lib/graphql/mutations";
 import { AUTH_URL } from "../../lib/graphql/queries";
 import { AuthUrl as AuthUrlData } from "../../lib/graphql/queries/AuthUrl/__generated__/AuthUrl";
@@ -15,7 +16,6 @@ import {
   displaySuccessNotification,
 } from "../../lib/utils";
 import { Viewer } from "../../lib/types";
-import { Redirect } from "react-router";
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
