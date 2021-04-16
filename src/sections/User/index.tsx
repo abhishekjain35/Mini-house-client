@@ -9,7 +9,7 @@ import {
 } from "../../lib/graphql/queries/User/__generated__/User";
 import { ErrorBanner, PageSkeleton } from "../../lib/components";
 import { Viewer } from "../../lib/types";
-import { UserProfile } from "./components";
+import { UserProfile, UserBookings, UserListings } from "./components";
 
 interface Props {
   viewer: Viewer;
