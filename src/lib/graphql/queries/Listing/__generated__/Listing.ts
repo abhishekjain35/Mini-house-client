@@ -43,6 +43,7 @@ export interface Listing_listing {
   id: string;
   title: string;
   description: string;
+  image: string;
   host: Listing_listing_host;
   type: ListingType;
   address: string;

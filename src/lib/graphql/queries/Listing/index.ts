@@ -6,6 +6,7 @@ export const LISTING = gql`
       id
       title
       description
+      image
       host {
         id
         name
