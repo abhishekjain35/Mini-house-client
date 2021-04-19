@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Card, Divider, Typography, DatePicker } from "antd";
-import { roundListingPrice } from "../../../../lib/utils";
-import { Moment } from "moment";
+import { roundListingPrice, displayErrorMessage } from "../../../../lib/utils";
+import moment, { Moment } from "moment";
 
 const { Paragraph, Title } = Typography;
 
@@ -9,8 +9,8 @@ interface Props {
   price: number;
   checkInDate: Moment | null;
   checkOutDate: Moment | null;
-  setCheckInDate: (checkInDate: Moment | null) => null;
-  setCheckOutDate: (checkOutDate: Moment | null) => null;
+  setCheckInDate: (checkInDate: Moment | null) => void;
+  setCheckOutDate: (checkOutDate: Moment | null) => void;
 }
 
 export const ListingCreateBooking = ({
@@ -20,6 +20,30 @@ export const ListingCreateBooking = ({
   setCheckInDate,
   setCheckOutDate,
 }: Props) => {
+  const disabledDate = (curr?: Moment) => {
+    if (curr) {
+      const dateIsBeforeEndOfDay = curr.isBefore(moment().endOf("day"));
+      return dateIsBeforeEndOfDay;
+    } else {
+      return false;
+    }
+  };
+
+  const verifyAndSetCheckOutDate = (selectedCheckOutDate: Moment | null) => {
+    if (checkInDate && selectedCheckOutDate) {
+      if (moment(selectedCheckOutDate).isBefore(checkInDate, "days")) {
+        return displayErrorMessage(
+          `You can't book date of check out to be prior to check in!`
+        );
+      }
+    }
+
+    setCheckOutDate(selectedCheckOutDate);
+  };
+
+  const checkOutInputDisabled = !checkInDate;
+  const ButtonDisabled = !checkInDate || !checkOutDate;
+
   return (
     <div className="listing-booking">
       <Card className="listing-booking__card">
@@ -36,13 +60,21 @@ export const ListingCreateBooking = ({
             <DatePicker
               value={checkInDate ? checkInDate : undefined}
               onChange={(dateValue) => setCheckInDate(dateValue)}
+              format={"YYYY/MM/DD"}
+              disabledDate={disabledDate}
+              showToday={false}
+              onOpenChange={() => setCheckOutDate(null)}
             />
           </div>
           <div className="listing-booking__card-date-picker">
             <Paragraph strong>Check Out</Paragraph>
             <DatePicker
               value={checkOutDate ? checkOutDate : undefined}
-              onChange={(dateValue) => setCheckInDate(dateValue)}
+              onChange={verifyAndSetCheckOutDate}
+              format={"YYYY/MM/DD"}
+              disabledDate={disabledDate}
+              showToday={false}
+              disabled={checkOutInputDisabled}
             />
           </div>
         </div>
@@ -51,6 +83,7 @@ export const ListingCreateBooking = ({
           size="large"
           type="primary"
           className="listing-booking__card-cta"
+          disabled={ButtonDisabled}
         >
           Request to book!
         </Button>
