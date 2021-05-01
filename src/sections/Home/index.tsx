@@ -9,7 +9,7 @@ import {
 } from "../../lib/graphql/queries/Listings/__generated__/Listings";
 import { ListingsFilter } from "../../lib/graphql/globalTypes";
 import { displayErrorMessage } from "../../lib/utils";
-import { HomeHero, HomeListings } from "./components";
+import { HomeHero, HomeListings, HomeListingsSkeleton } from "./components";
 import mapBackground from "./assets/map-background.jpg";
 import sanFransiscoImage from "./assets/san-fransisco.jpg";
 import cancunImage from "./assets/cancun.jpg";
@@ -44,7 +44,7 @@ export const Home = ({ history }: RouteComponentProps) => {
 
   const renderListingsSection = () => {
     if (loading) {
-      return "Loading..."
+      return <HomeListingsSkeleton />;
     }
 
     if (data) {
