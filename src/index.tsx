@@ -13,6 +13,7 @@ import {
   NotFound,
   User,
   Login,
+  Stripe,
 } from "./sections";
 import { AppHeaderSkeleton, ErrorBanner } from "./lib/components";
 import { Viewer } from "./lib/types";
@@ -99,6 +100,13 @@ const App = () => {
             exact
             path="/user/:id"
             render={(props) => <User {...props} viewer={viewer} />}
+          />
+          <Route
+            exact
+            path="/stripe"
+            render={(props) => (
+              <Stripe {...props} viewer={viewer} setViewer={setViewer} />
+            )}
           />
           <Route exact path="/" component={Home} />
           <Route component={NotFound} />
