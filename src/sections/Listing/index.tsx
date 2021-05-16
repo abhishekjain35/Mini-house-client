@@ -14,6 +14,7 @@ import {
   ListingBookings,
   ListingDetails,
   ListingCreateBooking,
+  ListingCreateBookingModal,
 } from "./components";
 
 interface MatchParams {
@@ -29,11 +30,12 @@ const PAGE_LIMIT = 3;
 
 export const Listing = ({
   match,
-  viewer
+  viewer,
 }: IProps & RouteComponentProps<MatchParams>) => {
   const [bookingsPage, setBookingsPage] = useState(1);
   const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const { loading, data, error } = useQuery<ListingData, ListingVariables>(
     LISTING,
@@ -89,8 +91,20 @@ export const Listing = ({
       checkOutDate={checkOutDate}
       setCheckInDate={setCheckInDate}
       setCheckOutDate={setCheckOutDate}
+      setModalVisible={setModalVisible}
     />
   ) : null;
+
+  const listingCreateBookingModalElement =
+    listing && checkInDate && checkOutDate ? (
+      <ListingCreateBookingModal
+        price={listing.price}
+        modalVisible={modalVisible}
+        checkInDate={checkInDate}
+        checkOutDate={checkOutDate}
+        setModalVisible={setModalVisible}
+      />
+    ) : null;
 
   return (
     <Content className="listings">
@@ -103,6 +117,7 @@ export const Listing = ({
           {listingCreateBookingElement}
         </Col>
       </Row>
+      {listingCreateBookingModalElement}
     </Content>
   );
 };
