@@ -142,8 +142,6 @@ export const Host = ({ viewer, form }: Props & FormComponentProps) => {
     return false;
   };
 
-  console.log(imageBase64Value);
-
   const { getFieldDecorator } = form;
 
   return (

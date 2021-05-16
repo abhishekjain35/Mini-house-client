@@ -5,6 +5,7 @@ import { Col, Layout, Row } from "antd";
 import { Moment } from "moment";
 import { ErrorBanner, PageSkeleton } from "../../lib/components";
 import { LISTING } from "../../lib/graphql/queries";
+import { Viewer } from "../../lib/types";
 import {
   Listing as ListingData,
   ListingVariables,
@@ -19,10 +20,17 @@ interface MatchParams {
   id: string;
 }
 
+interface IProps {
+  viewer: Viewer;
+}
+
 const { Content } = Layout;
 const PAGE_LIMIT = 3;
 
-export const Listing = ({ match }: RouteComponentProps<MatchParams>) => {
+export const Listing = ({
+  match,
+  viewer
+}: IProps & RouteComponentProps<MatchParams>) => {
   const [bookingsPage, setBookingsPage] = useState(1);
   const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
@@ -73,6 +81,9 @@ export const Listing = ({ match }: RouteComponentProps<MatchParams>) => {
 
   const listingCreateBookingElement = listing ? (
     <ListingCreateBooking
+      viewer={viewer}
+      host={listing.host}
+      bookingsIndex={listing.bookingsIndex}
       price={listing.price}
       checkInDate={checkInDate}
       checkOutDate={checkOutDate}

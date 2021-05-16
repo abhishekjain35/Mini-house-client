@@ -2,10 +2,16 @@ import React from "react";
 import { Button, Card, Divider, Typography, DatePicker } from "antd";
 import { roundListingPrice, displayErrorMessage } from "../../../../lib/utils";
 import moment, { Moment } from "moment";
+import { Viewer } from "../../../../lib/types";
+import { Listing as ListingData } from "../../../../lib/graphql/queries/Listing/__generated__/Listing";
+import { BookingsIndex } from "./types";
 
-const { Paragraph, Title } = Typography;
+const { Paragraph, Title, Text } = Typography;
 
 interface Props {
+  viewer: Viewer;
+  host: ListingData["listing"]["host"];
+  bookingsIndex: ListingData["listing"]["bookingsIndex"];
   price: number;
   checkInDate: Moment | null;
   checkOutDate: Moment | null;
@@ -14,16 +20,33 @@ interface Props {
 }
 
 export const ListingCreateBooking = ({
+  viewer,
+  host,
+  bookingsIndex,
   price,
   checkInDate,
   checkOutDate,
   setCheckInDate,
   setCheckOutDate,
 }: Props) => {
+  const bookingsIndexJSON: BookingsIndex = JSON.parse(bookingsIndex);
+
+  const dateIsBooked = (currentDate: Moment) => {
+    const year = moment(currentDate).year();
+    const month = moment(currentDate).month();
+    const day = moment(currentDate).date();
+
+    if (bookingsIndexJSON[year] && bookingsIndexJSON[year][month]) {
+      return Boolean(bookingsIndexJSON[year][month][day]);
+    } else {
+      return false;
+    }
+  };
+
   const disabledDate = (curr?: Moment) => {
     if (curr) {
       const dateIsBeforeEndOfDay = curr.isBefore(moment().endOf("day"));
-      return dateIsBeforeEndOfDay;
+      return dateIsBeforeEndOfDay || dateIsBooked(curr);
     } else {
       return false;
     }
@@ -36,13 +59,45 @@ export const ListingCreateBooking = ({
           `You can't book date of check out to be prior to check in!`
         );
       }
+
+      let dateCursor = checkInDate;
+
+      while (moment(dateCursor).isBefore(selectedCheckOutDate, "days")) {
+        dateCursor = moment(dateCursor).add(1, "days");
+
+        const year = moment(dateCursor).year();
+        const month = moment(dateCursor).month();
+        const day = moment(dateCursor).date();
+
+        if (
+          bookingsIndexJSON[year] &&
+          bookingsIndexJSON[year][month] &&
+          bookingsIndexJSON[year][month][day]
+        ) {
+          return displayErrorMessage(
+            "You can't book a period of time that overlaps existing bookings. Please try again!"
+          );
+        }
+      }
     }
 
     setCheckOutDate(selectedCheckOutDate);
   };
+  
+  const viewerIsHost = viewer.id === host.id;
+  const checkInInputDisabled = !viewer.id || viewerIsHost;
+  const checkOutInputDisabled = checkInInputDisabled || !checkInDate;
+  const ButtonDisabled = checkOutInputDisabled || !checkInDate || !checkOutDate;
 
-  const checkOutInputDisabled = !checkInDate;
-  const ButtonDisabled = !checkInDate || !checkOutDate;
+  let buttonMessage = "You won't be charged yet";
+  if (!viewer.id) {
+    buttonMessage = "You have to be signed in to book a listing!";
+  } else if (viewerIsHost) {
+    buttonMessage = "You can't book your own listing!";
+  } else if (!host.hasWallet) {
+    buttonMessage =
+      "The host has disconnected from Stripe and thus won't be able to receive payments.";
+  }
 
   return (
     <div className="listing-booking">
@@ -62,6 +117,7 @@ export const ListingCreateBooking = ({
               onChange={(dateValue) => setCheckInDate(dateValue)}
               format={"YYYY/MM/DD"}
               disabledDate={disabledDate}
+              disabled={checkInInputDisabled}
               showToday={false}
               onOpenChange={() => setCheckOutDate(null)}
             />
@@ -80,13 +136,16 @@ export const ListingCreateBooking = ({
         </div>
         <Divider />
         <Button
+          disabled={ButtonDisabled}
           size="large"
           type="primary"
           className="listing-booking__card-cta"
-          disabled={ButtonDisabled}
         >
           Request to book!
         </Button>
+        <Text type="secondary" mark>
+          {buttonMessage}
+        </Text>
       </Card>
     </div>
   );
