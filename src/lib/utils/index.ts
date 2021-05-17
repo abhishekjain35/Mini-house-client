@@ -3,8 +3,8 @@ import { message, notification } from "antd";
 export const iconColor = "#1890ff";
 
 export const roundListingPrice = (price: number, round = true) => {
-  const roundedListingPrice = round ? Math.round(price / 100) : price / 100;
-  return `$${roundedListingPrice}`;
+  const roundedListingPrice = round ? Math.round(price) : price;
+  return `₹${roundedListingPrice}`;
 };
 
 export const displaySuccessNotification = (

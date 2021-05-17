@@ -67,7 +67,7 @@ export const Host = ({ viewer, form }: Props & FormComponentProps) => {
         ...values,
         address: fullAddress,
         image: imageBase64Value,
-        price: values.price * 100,
+        price: values.price,
       };
       delete input.city;
       delete input.state;
@@ -302,7 +302,7 @@ export const Host = ({ viewer, form }: Props & FormComponentProps) => {
           </div>
         </Item>
 
-        <Item label="Price" extra="All prices in $USD/day">
+        <Item label="Price" extra="All prices in ₹INR/day">
           {getFieldDecorator("price", {
             rules: [
               {
@@ -310,7 +310,7 @@ export const Host = ({ viewer, form }: Props & FormComponentProps) => {
                 message: "Please enter a price for your listing!",
               },
             ],
-          })(<InputNumber min={0} placeholder="120" />)}
+          })(<InputNumber min={0} placeholder="1200" />)}
         </Item>
 
         <Item>

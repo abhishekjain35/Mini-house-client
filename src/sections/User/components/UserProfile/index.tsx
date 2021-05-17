@@ -101,7 +101,7 @@ export const UserProfile = ({
         >
           Stripe
         </a>{" "}
-        to help transfer your earnings in a secure and truster manner.
+        to help transfer your earnings in a secure and trusted manner.
       </Paragraph>
     </>
   );
