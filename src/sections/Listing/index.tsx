@@ -14,7 +14,7 @@ import {
   ListingBookings,
   ListingDetails,
   ListingCreateBooking,
-  ListingCreateBookingModal,
+  WrappedListingCreateBookingModal as ListingCreateBookingModal,
 } from "./components";
 
 interface MatchParams {
