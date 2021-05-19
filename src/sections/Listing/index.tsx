@@ -3,6 +3,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { Col, Layout, Row } from "antd";
 import { Moment } from "moment";
+import { useScrollToTop } from "../../lib/hooks";
 import { ErrorBanner, PageSkeleton } from "../../lib/components";
 import { LISTING } from "../../lib/graphql/queries";
 import { Viewer } from "../../lib/types";
@@ -47,6 +48,8 @@ export const Listing = ({
       limit: PAGE_LIMIT,
     },
   });
+
+  useScrollToTop();
 
   if (loading) {
     return (

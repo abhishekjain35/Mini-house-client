@@ -7,6 +7,7 @@ import {
   ListingsPagination,
   ListingsSkeleton,
 } from "./components";
+import { useScrollToTop } from "../../lib/hooks";
 import { LISTINGS } from "../../lib/graphql/queries";
 import {
   Listings as ListingsData,
@@ -40,6 +41,8 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
       },
     }
   );
+
+  useScrollToTop();
 
   useEffect(() => {
     setPage(1);

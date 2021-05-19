@@ -13,6 +13,7 @@ import {
   Upload,
 } from "antd";
 import { FormComponentProps } from "antd/lib/form";
+import { useScrollToTop } from "../../lib/hooks";
 import { HOST_LISTING } from "../../lib/graphql/mutations";
 import {
   HostListing as HostListingData,
@@ -51,6 +52,8 @@ export const Host = ({ viewer, form }: Props & FormComponentProps) => {
       );
     },
   });
+
+  useScrollToTop();
 
   const handleHostListing = (evt: FormEvent) => {
     evt.preventDefault();
