@@ -31,18 +31,22 @@ export const User = ({
   const [bookingsPage, setBookingsPage] = useState(1);
   const [listingsPage, setListingsPage] = useState(1);
 
-  const { data, loading, error, refetch } = useQuery<UserData, UserVariables>(USER, {
-    variables: {
-      id: match.params.id,
-      bookingsPage,
-      listingsPage,
-      limit: PAGE_LIMIT,
-    },
-  });
+  const { data, loading, error, refetch } = useQuery<UserData, UserVariables>(
+    USER,
+    {
+      variables: {
+        id: match.params.id,
+        bookingsPage,
+        listingsPage,
+        limit: PAGE_LIMIT,
+      },
+      fetchPolicy: "cache-and-network",
+    }
+  );
 
   const handleUserRefetch = async () => {
-    await refetch()
-  }
+    await refetch();
+  };
 
   if (loading) {
     return (

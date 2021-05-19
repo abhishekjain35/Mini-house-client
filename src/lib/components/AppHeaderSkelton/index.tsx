@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Layout } from "antd";
-import logo from "./assets/tinyhouse-logo.png";
+import logo from "./assets/minihouse-logo.png";
 const { Header } = Layout;
 
 export const AppHeaderSkeleton = () => {

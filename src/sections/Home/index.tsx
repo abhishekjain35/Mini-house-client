@@ -13,6 +13,7 @@ import { HomeHero, HomeListings, HomeListingsSkeleton } from "./components";
 import mapBackground from "./assets/map-background.jpg";
 import sanFransiscoImage from "./assets/san-fransisco.jpg";
 import cancunImage from "./assets/cancun.jpg";
+import { Alert } from "antd";
 
 const { Content } = Layout;
 const { Paragraph, Title } = Typography;
@@ -29,6 +30,7 @@ export const Home = ({ history }: RouteComponentProps) => {
         limit: PAGE_LIMIT,
         page: PAGE_NUMBER,
       },
+      fetchPolicy: "cache-and-network",
     }
   );
 
@@ -64,8 +66,26 @@ export const Home = ({ history }: RouteComponentProps) => {
       className="home"
       style={{ backgroundImage: `url(${mapBackground})` }}
     >
+      <Alert
+        message={
+          <span>
+            Please note that the listings and photos are mock data. You can
+            visit the{" "}
+            <a
+              href="https://github.com/abhishekjain35/Mini-house-client"
+              target="_blank"
+            >
+              github
+            </a>{" "}
+            repo for more info.{" "}
+          </span>
+        }
+        type="info"
+        showIcon
+        className="error-banner"
+        closable
+      />
       <HomeHero onSearch={onSearch} />
-
       <div className="home__cta-section">
         <Title level={2} className="home__cta-section-title">
           Your guide for all things rental
@@ -88,7 +108,7 @@ export const Home = ({ history }: RouteComponentProps) => {
         </Title>
         <Row gutter={12}>
           <Col xs={24} sm={12}>
-            <Link to="/listings/san%20fransisco">
+            <Link to="/listings/san%20francisco">
               <div className="home__listings-img-cover">
                 <img
                   src={sanFransiscoImage}
@@ -99,7 +119,7 @@ export const Home = ({ history }: RouteComponentProps) => {
             </Link>
           </Col>
           <Col xs={24} sm={12}>
-            <Link to="/listings/cancún">
+            <Link to="/listings/mexico">
               <div className="home__listings-img-cover">
                 <img
                   src={cancunImage}

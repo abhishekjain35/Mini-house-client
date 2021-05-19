@@ -93,7 +93,7 @@ export const Login = ({ setViewer }: Props) => {
               👋
             </span>
           </Title>
-          <Title>Log in to TinyHouse!</Title>
+          <Title>Log in to Minihouse!</Title>
           <Text>Sign in with Google to start booking available rentals</Text>
         </div>
         <button

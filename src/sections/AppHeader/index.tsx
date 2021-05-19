@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { Input, Layout } from "antd";
-import logo from "./assets/tinyhouse-logo.png";
+import logo from "./assets/minihouse-logo.png";
 import { MenuItems } from "./components";
 import { Viewer } from "../../lib/types";
 import { displayErrorMessage } from "../../lib/utils";
@@ -51,7 +51,7 @@ export const AppHeader = withRouter(
           </div>
           <div className="app-header__search-input">
             <Search
-              placeholder="Search 'San Fransisco'"
+              placeholder="Search 'San Francisco'"
               enterButton
               value={search}
               onChange={(evt) => setSearch(evt.target.value)}

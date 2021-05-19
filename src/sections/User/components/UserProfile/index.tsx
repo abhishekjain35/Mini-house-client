@@ -93,7 +93,7 @@ export const UserProfile = ({
         Connect with Stripe
       </Button>
       <Paragraph type="secondary">
-        TinyHouse uses{" "}
+        MiniHouse uses{" "}
         <a
           href="https://stripe.com/en-US/connect"
           target="_blank"
