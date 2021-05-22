@@ -1,44 +1,39 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## MiniHouse
+This is a `House sharing app`. Users can `host` or `book` listings through this application. MiniHouse has features like `authentication`, `data persistence`, `payments through stripe`, `Dashboards for host and normal users` etc.
 
-## Available Scripts
+[Checkout live demo here](https://minihouse.herokuapp.com/)
 
-In the project directory, you can run:
+### or
+## Instruction to run on local machine
 
-### `npm start`
+1. Clone the repository
+2. Create `.env` file with two key value pairs, `REACT_APP_S_PUBLISHABLE_KEY` for stripe publishable key and `REACT_APP_S_CLIENT_ID` for stripe client id.
+3. Run `npm install` to install dependencies
+4. Run `npm start` to start the app on localhost
+5. Open browser and go to [localhost:3000](http://localhost:3000)
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features 
+1. `Sign in with google` with `OAuth 2.0`
+2. `Connect to stripe` if you're a host and want to host listings.
+3. `Search` for listings in your desired location, `filter` them with pricing high to low or viceversa.
+4. `Book` your desired listing by selecting `check-in` and `check-out` dates, paying through stripe.
+5. Visit the profile section to see your `created and booked listings`, see `income`, disconnecting from stripe etc...
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Libraries Used for Client
 
-### `npm test`
+1. React
+2. Ant design (React UI library for easy-to-use components like cards, datepickers)
+3. TypeScript (For efficient type checking)
+4. Apollo (Apollo provides a declarative API, intelligent caching and react hooks for API calls)
+5. Moment (For managing dates)
+6. React stripe elements (For getting card details in a proper manner)
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Libraries Used for Server
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Express with Apollo (It is a minimal and flexible Node.js framework for server side)
+2. MongoDB (A non relational database for storing the application data)
+3. GraphQL (A data query and manipulation language for APIs)
+3. Google APIs (For enabling sign in with google and geocoding)
+4. Stripe (For managing all the payments)
+6. Cloudinary (for uploading listing images)
+7. Compression (For sending compressed gzip formatted data to client)

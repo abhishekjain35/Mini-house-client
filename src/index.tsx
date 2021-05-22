@@ -48,6 +48,7 @@ const initialViewer: Viewer = {
 
 const App = () => {
   const [viewer, setViewer] = useState<Viewer>(initialViewer);
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
   const [logIn, { error }] = useMutation<LogInData, LogInVariables>(LOG_IN, {
     onCompleted: (data) => {
       if (data && data.logIn) {
@@ -89,7 +90,17 @@ const App = () => {
             <AppHeader viewer={viewer} setViewer={setViewer} />
           </Affix>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <Home
+                  {...props}
+                  isBannerVisible={isBannerVisible}
+                  setIsBannerVisible={setIsBannerVisible}
+                />
+              )}
+            />
             <Route
               exact
               path="/host"

@@ -22,7 +22,16 @@ const { Paragraph, Title } = Typography;
 const PAGE_LIMIT = 4;
 const PAGE_NUMBER = 1;
 
-export const Home = ({ history }: RouteComponentProps) => {
+interface IProps {
+  isBannerVisible: boolean;
+  setIsBannerVisible: (isBannerVisible: boolean) => void;
+}
+
+export const Home = ({
+  isBannerVisible,
+  setIsBannerVisible,
+  history,
+}: IProps & RouteComponentProps) => {
   const { loading, data } = useQuery<ListingsData, ListingsVariables>(
     LISTINGS,
     {
@@ -69,25 +78,28 @@ export const Home = ({ history }: RouteComponentProps) => {
       className="home"
       style={{ backgroundImage: `url(${mapBackground})` }}
     >
-      <Alert
-        message={
-          <span>
-            Please note that the listings and photos are mock data. You can
-            visit the{" "}
-            <a
-              href="https://github.com/abhishekjain35/Mini-house-client"
-              target="_blank"
-            >
-              github
-            </a>{" "}
-            repo for more info.{" "}
-          </span>
-        }
-        type="info"
-        showIcon
-        className="error-banner"
-        closable
-      />
+      {isBannerVisible ? (
+        <Alert
+          message={
+            <span>
+              Please note that the listings and photos are mock data. You can
+              visit the{" "}
+              <a
+                href="https://github.com/abhishekjain35/Mini-house-client"
+                target="_blank"
+              >
+                github
+              </a>{" "}
+              repo for more info.{" "}
+            </span>
+          }
+          type="info"
+          showIcon
+          className="error-banner"
+          closable
+          onClose={() => setIsBannerVisible(false)}
+        />
+      ) : null}
       <HomeHero onSearch={onSearch} />
       <div className="home__cta-section">
         <Title level={2} className="home__cta-section-title">
