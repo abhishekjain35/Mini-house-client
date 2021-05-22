@@ -1,3 +1,4 @@
+The repository for MiniHouse-server can be found [here](https://github.com/abhishekjain35/Mini-house-server)
 ## MiniHouse
 This is a `House sharing app`. Users can `host` or `book` listings through this application. MiniHouse has features like `authentication`, `data persistence`, `payments through stripe`, `Dashboards for host and normal users` etc.
 
@@ -12,28 +13,28 @@ This is a `House sharing app`. Users can `host` or `book` listings through this 
 4. Run `npm start` to start the app on localhost
 5. Open browser and go to [localhost:3000](http://localhost:3000)
 
-## Features 
-1. `Sign in with google` with `OAuth 2.0`
-2. `Connect to stripe` if you're a host and want to host listings.
-3. `Search` for listings in your desired location, `filter` them with pricing high to low or viceversa.
-4. `Book` your desired listing by selecting `check-in` and `check-out` dates, paying through stripe.
-5. Visit the profile section to see your `created and booked listings`, see `income`, disconnecting from stripe etc...
+## Features of the MiniHouse app
+- `Sign in with google` with `OAuth 2.0`
+- `Connect to stripe` if you're a host and want to host listings.
+- `Search` for listings in your desired location, `filter` them with pricing high to low or viceversa.
+- `Book` your desired listing by selecting `check-in` and `check-out` dates, paying through stripe.
+- Visit the profile section to see your `created and booked listings`, see `income`, disconnecting from stripe etc...
 
-## Libraries Used for Client
+## Some important libraries used for client
 
-1. React
-2. Ant design (React UI library for easy-to-use components like cards, datepickers)
-3. TypeScript (For efficient type checking)
-4. Apollo (Apollo provides a declarative API, intelligent caching and react hooks for API calls)
-5. Moment (For managing dates)
-6. React stripe elements (For getting card details in a proper manner)
+- React
+- Ant design (React UI library for easy-to-use components like cards, datepickers)
+- TypeScript (For efficient type checking)
+- Apollo (Apollo provides a declarative API, intelligent caching and react hooks for API calls)
+- Moment (For managing dates)
+- React stripe elements (For getting card details in a proper manner)
 
-## Libraries Used for Server
+## Some important libraries used for server
 
-1. Express with Apollo (It is a minimal and flexible Node.js framework for server side)
-2. MongoDB (A non relational database for storing the application data)
-3. GraphQL (A data query and manipulation language for APIs)
-3. Google APIs (For enabling sign in with google and geocoding)
-4. Stripe (For managing all the payments)
-6. Cloudinary (for uploading listing images)
-7. Compression (For sending compressed gzip formatted data to client)
+- Express with Apollo (It is a minimal and flexible Node.js framework for server side)
+- MongoDB (A non relational database for storing the application data)
+- GraphQL (A data query and manipulation language for APIs)
+- Google APIs (For enabling sign in with google and geocoding)
+- Stripe (For managing all the payments)
+- Cloudinary (for uploading listing images)
+- Compression (For sending compressed gzip formatted data to client)

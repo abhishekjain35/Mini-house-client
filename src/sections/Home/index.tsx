@@ -82,15 +82,15 @@ export const Home = ({
         <Alert
           message={
             <span>
-              Please note that the listings and photos are mock data. You can
-              visit the{" "}
+              Please note that the listings and photos are mock data, so listings for only few cities are available like los angeles, toronto, dubai, london etc. You can always add listings for your favourite city &#128513;.
+              Visit the{" "}
               <a
                 href="https://github.com/abhishekjain35/Mini-house-client"
                 target="_blank"
               >
                 github
               </a>{" "}
-              repo for more info.{" "}
+              repo for more info.
             </span>
           }
           type="info"
