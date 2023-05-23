@@ -2,7 +2,8 @@ The repository for MiniHouse-server can be found [here](https://github.com/abhis
 ## MiniHouse
 This is a `House sharing app`. Users can `host` or `book` listings through this application. MiniHouse has features like `authentication`, `data persistence`, `payments through stripe`, `Dashboards for host and normal users` etc.
 
-[Checkout live demo here](https://minihouse.herokuapp.com/)
+## Demo
+https://github.com/abhishekjain35/Mini-house-client/assets/53055241/7e5c44bf-5e08-4228-bae0-6c983761ba59
 
 ### or
 ## Instruction to run on local machine
